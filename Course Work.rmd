@@ -1,0 +1,348 @@
+---
+title: "CM1606-Computational Mathematics- Coursework "
+author: "W. G. Thisarani Nimthera Jayaweera"
+date: "2024-07-16"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(MASS)
+```
+
+```{r}
+
+#Question 01
+
+#(a)
+
+#Assign values for cards in each box
+box1_card1 <- 1
+box1_card2 <- 3
+box1_card3 <- 5
+box2_card1 <- 2
+box2_card2 <- 6
+box2_card3 <- 8
+
+#Calculate possible sums
+x1 <- box1_card1 + box2_card1
+x2 <- box1_card1 + box2_card2
+x3 <- box1_card1 + box2_card3
+x4 <- box1_card2 + box2_card1
+x5 <- box1_card2 + box2_card2
+x6 <- box1_card2 + box2_card3
+x7 <- box1_card3 + box2_card1
+x8 <- box1_card3 + box2_card2
+x9 <- box1_card3 + box2_card3
+
+#Possible values of X
+possible_values_of_x <- c(x1,x2,x3,x4,x5,x6,x7,x8,x9)
+
+possible_values_of_x
+
+#(b)
+
+#There are two 7s, two 9s and two 11s. Therefore,
+pmf_x_3  <- 1/9
+pmf_x_5  <- 1/9
+pmf_x_7  <- 2/9
+pmf_x_9  <- 2/9
+pmf_x_11 <- 2/9
+pmf_x_13 <- 1/9
+
+#Print the PMF of X
+pmf_x <- list("P(X=3)"=pmf_x_3,"P(X=5)"=pmf_x_5,"P(X=7)"=pmf_x_7,"P(X=9)"=pmf_x_9,"P(X=11)"=pmf_x_11,"P(X=13)"=pmf_x_13)
+
+pmf_x
+
+#(c)
+
+#Calculate E(X)
+E_X <- (3*pmf_x_3)+(5*pmf_x_5)+(7*pmf_x_7)+(9*pmf_x_9)+(11*pmf_x_11)+(13*pmf_x_13)
+E_X
+
+#Calculate E(X^2)
+E_X2 <- (3^2*pmf_x_3)+(5^2*pmf_x_5)+(7^2*pmf_x_7)+(9^2*pmf_x_9)+(11^2*pmf_x_11)+(13^2*pmf_x_13)
+
+#Calculate var(X)
+var_X<- E_X2 - E_X^2
+var_X
+
+#(d)
+
+Y1 <- 3*x1-4
+Y2 <- 3*x2-4
+Y3 <- 3*x3-4
+Y4 <- 3*x4-4
+Y5 <- 3*x5-4
+Y6 <- 3*x6-4
+Y7 <- 3*x7-4
+Y8 <- 3*x8-4
+Y9 <- 3*x9-4
+
+#Possible values of y
+possible_values_of_y <- c(Y1,Y2,Y3,Y4,Y5,Y6,Y7,Y8,Y9)
+possible_values_of_y
+
+#There are two 17s, two 23s and two 29s. Therefore,
+pmf_y_5  <- 1/9
+pmf_y_11 <- 1/9
+pmf_y_17 <- 2/9
+pmf_y_23 <- 2/9
+pmf_y_29 <- 2/9
+pmf_y_35 <- 1/9
+
+#Print the PMF of Y 
+pmf_y <- list("P(Y=5)"=pmf_y_5,"P(Y=11)"=pmf_y_11,"P(Y=17)"=pmf_y_17,"P(Y=23)"=pmf_y_23,"P(Y=29)"=pmf_y_29,"P(Y=35)"=pmf_y_35)
+
+pmf_y
+
+#(e)
+
+#CDF of Y
+cdf_y_5 <-  pmf_y_5
+cdf_y_11 <- cdf_y_5 + pmf_y_11
+cdf_y_17 <- cdf_y_11 + pmf_y_17
+cdf_y_23 <- cdf_y_17 + pmf_y_23
+cdf_y_29 <- cdf_y_23 + pmf_y_29
+cdf_y_35 <- cdf_y_29 + pmf_y_35
+
+#Print the CDF of Y
+cdf_y <- list("P(Y=5)"=cdf_y_5,"P(Y=11)"=cdf_y_11,"P(Y=17)"=cdf_y_17,"P(Y=23)"=cdf_y_23,"P(Y=29)"=cdf_y_29,"P(Y=35)"=cdf_y_35)
+
+cdf_y
+
+#(f)
+p_23 <- cdf_y_23 - cdf_y_17
+p_23
+
+```
+
+```{r}
+
+#Question 02
+
+#(a)
+
+#Random sample of 500 values from a normal distribution
+random_sample <- rnorm(500,mean=25,sd=8)
+random_sample
+
+#Histogram
+breaks10 <- seq(min(random_sample),max(random_sample),length.out=11)
+hist(random_sample,breaks = breaks10,main="Histogram of random sample",xlab="value",ylab="frequency",col="green",border="black",freq = FALSE)
+
+#(b)
+
+#Density Curve
+lines(density(random_sample),col="red",lwd=2)
+#(c)
+
+#Comments on the histogram and the density curve
+print("The distribution of the random sample with ten bins is displayed on the histogram, which also highlights the frequency of values within each bin. Using the sample mean and sd as a basis, the density curve overlays the theoretical normal distribution curve to display the predicted form of the data.")
+
+```
+
+```{r}
+#Question 03
+
+#(a)
+
+#Data Set - Data Frame 
+X <- c(3.00,3.40,4.00,4.60,5.00,5.48,6.00,6.53,7.00)
+Y <- c(8.0000,6.5600,5.0000,4.1600,4.0000,4.2304,5.0000,6.3409,8.0000) 
+
+dataset <- data.frame(X,Y)
+dataset
+
+plot(X,Y,main="Y VERSUS X",xlab="X",ylab="Y")
+
+
+#(b)
+
+main_pearson_correlation <- cor(X,Y)
+main_pearson_correlation
+
+#(c)
+
+print("Not a linear. When X changes sometime Y increase or decrease so can't found a consistent upward or downward trend which is leading the correlation close to zero.The range of values in (X) is from 3 to 7 which may not provide enough variance to impact (Y) considerably, especilly if (Y) is influenced by other factor not recored in this dataset.")
+
+#(d)
+
+X_l_6 <- X[4:9]
+Y_l_6 <- Y[4:9]
+
+last6_pearson_correlation <- cor(X_l_6,Y_l_6,method = "pearson")
+last6_pearson_correlation
+
+print("When considering the last six pairs there's a significant increament of Y.That's why the pearson's correlation got a plus value. ")
+
+#(e)
+
+X1 <- 3-2*X
+X2 <- 2*X^3
+
+pearson_correlation_of_X1 <- cor(X1,Y,method = "pearson")
+pearson_correlation_of_X1
+
+print("It is the same value of the main pearson correlation but sign is plus.")
+
+pearson_correlation_of_X2 <- cor(X2,Y,method = "pearson")
+pearson_correlation_of_X2
+
+print("Complete different answer from the main pearson correlation which is also plus value.")
+
+```
+
+
+```{r}
+#Question 04
+
+data(cars)
+
+#(a)
+
+print(head(cars,10))
+
+#(b)
+
+print ("summary of speed: ")
+print(summary(cars$speed))
+
+print ("summary od dist: ")
+print(summary(cars$dist))
+
+#(c)
+
+plot(cars$speed,cars$dist,main="Speed Versus Stopping Distance",xlab = "speed(mph)",ylab = "stopping distance(ft)")
+print("It's a positive association. because when speed is increases, the stopping distance is also increase. In conclution, as the speed increasing it needs long distance to stop.")
+
+#(d)
+
+regression_line <- lm(dist ~ speed,data=cars)
+summary(regression_line)
+
+fitted_values <- fitted(regression_line)
+
+abline(regression_line,col="blue",lwd=2)
+
+#(e)
+
+#Extract the coefficients
+
+coefficients<-coef(regression_line)
+β0 <- coefficients[1]
+β1 <- coefficients[2]
+
+print("The fitted equation")
+cat("Y =",round(β0,2),"+",round(β1,2),"X\n")
+
+#(f)
+print("Increase in stopping distance per unit increase in speed :")
+cat(round(β1,2),"ft per mph\n")
+
+#(g)
+plot_residuals <- resid(regression_line)
+plot(fitted_values,plot_residuals,main="Residuals Versus Speed (X)",xlab = "Speed",ylab="Residuals",col="blue")
+abline(h=0,col="red",lwd=2)
+
+print("There are some points that has appeared around the residual=0 line. Since there is no paticular pattern to this, the linear model is appropriate. There can be outliners because some points are far away from the horizontal line.")
+
+#(h)
+speed21 <- data.frame(speed=21)
+predict_distance <- predict(regression_line,newdata = speed21)
+print("predicted stopping distance for speed 21 mph")
+cat (round(predict_distance,2),"ft\n")
+```
+
+```{r}
+#Question 05
+
+#Part (A)
+
+mean_money <- 4.11
+sd_money <- 1.37
+
+#(a)
+
+p85th <- qnorm(0.85,mean = mean_money,sd=sd_money)
+cat("85th percentile: ",p85th,"\n")
+
+#(b)
+
+p35th <- qnorm(0.35,mean =mean_money, sd=sd_money)
+cat("35th percentile: ",p35th,"\n")
+
+#(c)
+
+median <- mean_money #median of normal distribution is same as the mean
+
+#(d)
+
+percentage_of_customer_spends5 <- 1-pnorm(5.00,mean=mean_money,sd=sd_money)
+cat("Percentage above $5.00 is",percentage_of_customer_spends5*100,"%\n")
+
+#Part (B)
+
+number_of_persons_percentage <- 0.10
+size_of_random_sample <- 10
+
+#(a)
+print("Binominal Distribution is suitable with parameters number_of_persons_percentage = 0.10 and size_of_random_sample = 10 ")
+
+#(b)
+prob_less_than_3_infected <- pbinom(2,size=size_of_random_sample,prob=number_of_persons_percentage)
+cat("Probability less than 3 persons are infected: ",prob_less_than_3_infected,"\n")
+
+#(c)
+
+mean_of_X <- number_of_persons_percentage*size_of_random_sample
+cat("Mean: ",mean_of_X,"\n")
+variance_of_X <- number_of_persons_percentage*size_of_random_sample*(1-number_of_persons_percentage)
+cat("Variance is",variance_of_X,"\n")
+
+#(d)
+print("Poisson Distribution is suitable because it has large number of sample size and small percentage.")
+new_sample_size <-100
+new_probability <- 0.024
+
+lambda <- new_sample_size*new_probability
+cat("Poisson Distribution with lambda : ",lambda,"\n")
+
+```
+
+
+```{r}
+#Question 06
+
+#(a)
+
+number_of_samples <- 50000
+my_bootstrap <- numeric(number_of_samples)
+data <- c(1,2,3,3,5,8,7,6,5,9,11,15)
+
+mean(data) #checking the mean of the given data
+
+for (i in 1:number_of_samples) {
+  s=sample(data,10,replace = T)
+  my_bootstrap[i]=mean(s)
+}
+
+hist(my_bootstrap)#creating a histogram of resulting bootstrap samples
+
+#(b)
+
+confidence_interval <- quantile (my_bootstrap, c(0.025, 0.975))
+cat("Thus, 95% ‘bootstrap percentile confidence interval’ for the mean is ",(confidence_interval),"\n")
+
+#(c)
+qqnorm(my_bootstrap)
+qqline(my_bootstrap,col="blue",lwd=2)
+
+```
